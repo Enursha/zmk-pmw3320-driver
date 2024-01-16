@@ -1,6 +1,9 @@
-PMW3610 driver implementation for ZMK with at least Zephyr 3.5
+PMW3320 driver implementation for ZMK with at least Zephyr 3.5
 
-This work is based on [ufan's implementation](https://github.com/ufan/zmk/tree/support-trackpad) of the driver.
+This work is derived from [inorichi's implementation](https://github.com/inorichi/zmk-pmw3610-driver) of the driver.
+There work is based on [ufan's implementation](https://github.com/ufan/zmk/tree/support-trackpad) of the driver.
+
+Somes bit are from [QMK's implementation](https://github.com/qmk/qmk_firmware/) of the drvier
 
 ## Installation
 
@@ -11,15 +14,15 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/petejohanson
-    - name: inorichi
-      url-base: https://github.com/inorichi
+    - name: enursha
+      url-base: https://github.com/enursha
   projects:
     - name: zmk
       remote: zmkfirmware
       revision: feat/pointers-move-scroll
       import: app/west.yml
-    - name: zmk-pmw3610-driver
-      remote: inorichi
+    - name: zmk-pmw3320-driver
+      remote: enursha
       revision: main
   self:
     path: config
@@ -73,7 +76,7 @@ Now, update your `board.overlay` adding the necessary bits (update the pins for 
 
     trackball: trackball@0 {
         status = "okay";
-        compatible = "pixart,pmw3610";
+        compatible = "pixart,pmw3320";
         reg = <0>;
         spi-max-frequency = <2000000>;
         irq-gpios = <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
@@ -89,11 +92,11 @@ Now enable the driver config in your `board.config` file (open the Kconfig file 
 CONFIG_SPI=y
 CONFIG_INPUT=y
 CONFIG_ZMK_MOUSE=y
-CONFIG_PMW3610=y
+CONFIG_PMW3320=y
 ```
 
 Finally, notify west the location of this module when building (this path is for the docker setup):
 
 ```bash
-west build <your board and shield...> -DZMK_EXTRA_MODULES=/workspaces/zmk/zmk-pmw3610-driver
+west build <your board and shield...> -DZMK_EXTRA_MODULES=/workspaces/zmk/zmk-pmw3320-driver
 ```

@@ -1,7 +1,7 @@
 description: |
-  Sensor driver for the pixart PMW3610 mouse sensor 
+  Sensor driver for the pixart PMW3320 mouse sensor 
 
-compatible: "pixart,pmw3610"
+compatible: "pixart,pmw3320"
 
 include: spi-device.yaml
 
@@ -15,3 +15,6 @@ properties:
   snipe-layers:
     type: array
     default: []
+  automouse-layer:
+    type: int
+    default: -1
